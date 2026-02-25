@@ -1,0 +1,64 @@
+﻿using UnityEngine;
+using TMPro;
+using UnityEngine.Pool;
+
+public class FloatingText : MonoBehaviour
+{
+    public float lifeTime = 1f;
+    public float moveSpeed = 50f;
+
+    float timer;
+    bool isReleased;
+
+    TextMeshProUGUI text;
+    Color originalColor;
+
+    IObjectPool<FloatingText> pool;
+
+    public void SetPool(IObjectPool<FloatingText> objectPool)
+    {
+        pool = objectPool;
+    }
+
+    void Awake()
+    {
+        text = GetComponent<TextMeshProUGUI>();
+        originalColor = text.color;
+    }
+
+    public void Activate(string value)
+    {
+        isReleased = false;
+
+        timer = lifeTime;
+        text.text = value;
+
+        // รีเซ็ตสีให้ทึบ
+        Color c = originalColor;
+        c.a = 1f;
+        text.color = c;
+
+        gameObject.SetActive(true);
+    }
+
+    void Update()
+    {
+        if (isReleased) return;
+
+        timer -= Time.deltaTime;
+
+        // ลอยขึ้น
+        transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
+
+        // 🎨 ทำให้จาง
+        Color c = text.color;
+        c.a = timer / lifeTime;
+        text.color = c;
+
+        if (timer <= 0f)
+        {
+            isReleased = true;
+            pool?.Release(this);
+        }
+    }
+}
