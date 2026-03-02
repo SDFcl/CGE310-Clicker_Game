@@ -11,11 +11,6 @@ public class PlaySound : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-
-        if (audioSource == null)
-        {
-            this.enabled = true;
-        }
     }
 
     public void StartPlaySound()

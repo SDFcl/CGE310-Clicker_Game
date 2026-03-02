@@ -27,6 +27,16 @@ public class GameSaveManager : MonoBehaviour
             return;
         }
 
+        var found = FindObjectsOfType<SlotUpgradeScript>(true);
+
+        foreach (var slot in found)
+        {
+            if (!upgradeSlots.Contains(slot))
+            {
+                upgradeSlots.Add(slot);
+            }
+        }
+
         // โหลดข้อมูลทันทีที่เริ่มเกม
         LoadAllData();
     }
@@ -109,6 +119,7 @@ public class GameSaveManager : MonoBehaviour
                 Debug.Log($"[Load] Slot {i} → Level = {loadedLevel}, Price = {slot.price}");
             }
         }
+        GM_LikesScore.instance.likeUpdatedInvoke();
     }
 
     public void StartNewGame()
@@ -134,7 +145,7 @@ public class GameSaveManager : MonoBehaviour
             slot.level = 0;
             slot.price = slot.basePrice; // หรือคำนวณใหม่ตามสูตรเริ่มต้น
             if (slot.AmountUpgrade != null) slot.AmountUpgrade.text = "0";
-            if (slot.PriceTMP != null) slot.PriceTMP.text = slot.basePrice.ToString();
+            if (slot.PriceTMP != null) slot.PriceTMP.text = slot.GetPrice().ToString();
         }
 
         // 3. เซฟสถานะใหม่ (optional แต่แนะนำ)

@@ -21,14 +21,14 @@ public class GM_LikesScore : MonoBehaviour
         else { Destroy(this); }
     }
 
-    private void Start()
-    {
-        OnLikesUpdated?.Invoke(_likeCount);
-    }
-
     private void Update()
     {
         AutoLike();
+    }
+
+    public void likeUpdatedInvoke()
+    {
+        OnLikesUpdated?.Invoke(_likeCount);
     }
 
     public void UpdateLikesText()
@@ -68,6 +68,7 @@ public class GM_LikesScore : MonoBehaviour
 
     #endregion
 
+
     #region Auto-Click
     public bool _autoClickActive = false;
 
@@ -106,7 +107,6 @@ public class GM_LikesScore : MonoBehaviour
     {
         if (!_autoClickActive) return;
 
-        // ⭐ ใช้ amount × rate ตามที่คุณออกแบบ
         likeBuffer += _autoClickAmount * _likePerSec * Time.deltaTime;
 
         if (likeBuffer >= 1f)

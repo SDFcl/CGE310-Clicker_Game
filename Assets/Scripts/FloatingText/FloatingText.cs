@@ -26,8 +26,10 @@ public class FloatingText : MonoBehaviour
         originalColor = text.color;
     }
 
-    public void Activate(string value)
+    public void Activate(string value , Canvas canvas)
     {
+        
+        text.transform.SetParent(canvas.transform);
         isReleased = false;
 
         timer = lifeTime;
@@ -39,7 +41,18 @@ public class FloatingText : MonoBehaviour
         text.color = c;
 
         RectTransform rect = GetComponent<RectTransform>();
-        if (rect != null ) rect.localScale = new Vector3(1f, 1f, 1f);
+        if (rect != null ) 
+        {
+            Vector2 pos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                canvas.transform as RectTransform,
+                Input.mousePosition,
+                canvas.worldCamera,
+                out pos
+            );
+            rect.localScale = new Vector3(1f, 1f, 1f); 
+            rect.localPosition = pos;
+        }
 
         gameObject.SetActive(true);
     }

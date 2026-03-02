@@ -1,39 +1,21 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class FloatingTextSpawner : MonoBehaviour
+public class FloatingTextSpawner : MonoBehaviour , IPointerClickHandler
 {
     public FloatingTextPool pool;
     public Canvas canvas;
 
-    private GM_LikesScore _gmLikesScore;
-
-    private void Awake()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        _gmLikesScore = GM_LikesScore.instance;
+        GM_LikesScore.instance.Click();
+        Spawn();
     }
 
-    private void OnMouseDown()
-    {
-        _gmLikesScore.Click();
-        Spawn(_gmLikesScore._clickAmount.ToString());
-    }
-
-    void Spawn(string value)
+    public void Spawn()
     {
         var text = pool.Get();
-
-        Vector2 pos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            canvas.transform as RectTransform,
-            Input.mousePosition,
-            canvas.worldCamera,
-            out pos
-        );
-
-        text.transform.SetParent(canvas.transform);
-        text.GetComponent<RectTransform>().localPosition = pos;
-
-        text.Activate(value);
+        text.Activate(GM_LikesScore.instance._clickAmount.ToString(), canvas);
     }
 }

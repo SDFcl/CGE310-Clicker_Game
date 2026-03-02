@@ -26,16 +26,17 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
 
     private void Awake()
     {
-        if (PriceTMP == null && AmountUpgrade == null && _scalePunchUI == null)
-        {
-            Debug.Log("Error : ยังไม่ได้กำหนด");
-            gameObject.SetActive(false);
-        }
+        
         price = basePrice;
         AmountUpgrade.text = "0";
         PriceTMP.text = GetPrice().ToString();
         AmountUpgrade.text = level.ToString();
 
+        
+    }
+
+    private void Start()
+    {
         if (GM_LikesScore.instance != null)
         {
             GM_LikesScore.instance.OnLikesUpdated += OnCanUpgrade;
@@ -44,11 +45,12 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
         {
             Debug.LogWarning("ไม่พบ GM_LikesScore.instance");
         }
-    }
 
-    private void Start()
-    {
-        
+        if (PriceTMP == null && AmountUpgrade == null && _scalePunchUI == null)
+        {
+            Debug.Log("Error : ยังไม่ได้กำหนด");
+            gameObject.SetActive(false);
+        }
     }
 
     private void OnDestroy()
@@ -61,14 +63,14 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
 
     private void OnCanUpgrade(int currentLikes)
     {
-        
+
         if (BlackScene != null)
         {
-           
             Color color = BlackScene.color;
-            if (currentLikes >= price)
+            if (currentLikes >= GetPrice())
             {
                 color.a = 0;
+                
             }
             else
             {
@@ -98,7 +100,7 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
 
     }
 
-    private int GetPrice()
+    public int GetPrice()
     {
         double _price = PriceAddLater + (basePrice * Mathf.Pow(growthRate, level));
         price = Convert.ToInt32(_price);
