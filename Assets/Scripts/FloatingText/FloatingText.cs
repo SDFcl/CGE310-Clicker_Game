@@ -31,12 +31,15 @@ public class FloatingText : MonoBehaviour
         isReleased = false;
 
         timer = lifeTime;
-        text.text = value;
+        text.text = "+"+value;
 
         // รีเซ็ตสีให้ทึบ
         Color c = originalColor;
         c.a = 1f;
         text.color = c;
+
+        RectTransform rect = GetComponent<RectTransform>();
+        if (rect != null ) rect.localScale = new Vector3(1f, 1f, 1f);
 
         gameObject.SetActive(true);
     }

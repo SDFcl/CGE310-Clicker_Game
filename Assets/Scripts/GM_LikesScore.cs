@@ -1,0 +1,117 @@
+﻿using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.Rendering;
+
+public class GM_LikesScore : MonoBehaviour
+{
+    public static GM_LikesScore instance;
+
+    [HideInInspector] public int _likeCount = 0;
+    [SerializeField] private TextMeshProUGUI LikesScoreText;
+
+    public System.Action<int> OnLikesUpdated;  // ← เพิ่ม event นี้ (public)
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else { Destroy(this); }
+    }
+
+    private void Update()
+    {
+        AutoLike();
+    }
+
+    public void UpdateLikesText()
+    {
+        LikesScoreText.text = "Like : " + _likeCount.ToString();
+    }
+    private void UpdateLikeScore(int Amount)
+    {
+        _likeCount += Amount;
+        UpdateLikesText();
+        OnLikesUpdated?.Invoke(_likeCount);
+    }
+
+    public int getScoreLikes()
+    {
+        return _likeCount;
+    }
+
+    public void setScoreLikes(int likeCount)
+    {
+        _likeCount = likeCount;
+        UpdateLikesText();
+        OnLikesUpdated?.Invoke(_likeCount);
+    }
+
+    #region Click
+
+    public int _clickAmount = 1;
+    public void addClickAmount(int amount) 
+    {
+        _clickAmount += amount;
+    }
+
+    public void Click()
+    {
+        UpdateLikeScore(_clickAmount);
+    }
+
+    #endregion
+
+    #region Auto-Click
+    public bool _autoClickActive = false;
+
+    private float likeBuffer;
+
+    public int _autoClickAmount = 1;
+    public int AutoClickAmount
+    {
+        get { return _autoClickAmount; }
+        set { _autoClickAmount = value; }
+    }
+
+    public float _likePerSec = 1.0f;
+    public float LikePerSec
+    {
+        get { return _likePerSec; }
+        set { _likePerSec = value; }
+    }
+
+    public void addAutoClickAmount(int amount)
+    {
+        if (!_autoClickActive) _autoClickActive = true;
+
+        _autoClickAmount += amount;
+    }
+
+    public void addAutoClickLikePerSec(float amount)
+    {
+        _likePerSec += amount;
+
+        if (_likePerSec > 0)
+            _autoClickActive = true;
+    }
+
+    void AutoLike()
+    {
+        if (!_autoClickActive) return;
+
+        // ⭐ ใช้ amount × rate ตามที่คุณออกแบบ
+        likeBuffer += _autoClickAmount * _likePerSec * Time.deltaTime;
+
+        if (likeBuffer >= 1f)
+        {
+            int amountToAdd = Mathf.FloorToInt(likeBuffer);
+            likeBuffer -= amountToAdd;
+
+            UpdateLikeScore(amountToAdd);
+        }
+    }
+    #endregion
+}

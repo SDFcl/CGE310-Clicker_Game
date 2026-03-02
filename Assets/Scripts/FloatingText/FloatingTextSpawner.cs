@@ -1,16 +1,22 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FloatingTextSpawner : MonoBehaviour
 {
     public FloatingTextPool pool;
     public Canvas canvas;
 
-    private float _likeCount = 1f;
+    private GM_LikesScore _gmLikesScore;
+
+    private void Awake()
+    {
+        _gmLikesScore = GM_LikesScore.instance;
+    }
 
     private void OnMouseDown()
     {
-        LikesScore.instance.addLikes(_likeCount);
-        Spawn(_likeCount.ToString());
+        _gmLikesScore.Click();
+        Spawn(_gmLikesScore._clickAmount.ToString());
     }
 
     void Spawn(string value)
