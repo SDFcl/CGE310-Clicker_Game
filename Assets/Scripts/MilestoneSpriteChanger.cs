@@ -102,7 +102,7 @@ public class MilestoneSpriteChanger : MonoBehaviour
                 milestones[justReachedIndex].audioClips.Length > 0)
             {
                 playSound.setAudioCClips(milestones[justReachedIndex].audioClips);
-                playSound.StartPlaySound();
+                //playSound.StartPlaySound();
                 Debug.Log($"Milestone reached → Played sound | Likes: {currentLikes} | Index: {justReachedIndex}");
             }
         }
