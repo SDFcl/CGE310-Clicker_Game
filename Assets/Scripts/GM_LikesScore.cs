@@ -21,6 +21,11 @@ public class GM_LikesScore : MonoBehaviour
         else { Destroy(this); }
     }
 
+    private void Start()
+    {
+        OnLikesUpdated?.Invoke(_likeCount);
+    }
+
     private void Update()
     {
         AutoLike();
@@ -29,12 +34,12 @@ public class GM_LikesScore : MonoBehaviour
     public void UpdateLikesText()
     {
         LikesScoreText.text = "Like : " + _likeCount.ToString();
+        OnLikesUpdated?.Invoke(_likeCount);
     }
     private void UpdateLikeScore(int Amount)
     {
         _likeCount += Amount;
         UpdateLikesText();
-        OnLikesUpdated?.Invoke(_likeCount);
     }
 
     public int getScoreLikes()
@@ -46,7 +51,6 @@ public class GM_LikesScore : MonoBehaviour
     {
         _likeCount = likeCount;
         UpdateLikesText();
-        OnLikesUpdated?.Invoke(_likeCount);
     }
 
     #region Click

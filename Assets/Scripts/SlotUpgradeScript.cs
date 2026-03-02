@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
+//using Microsoft.Unity.VisualStudio.Editor;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
 {
     public TextMeshProUGUI PriceTMP;
     public TextMeshProUGUI AmountUpgrade;
+    public Image BlackScene;
 
     public ScalePunchUI _scalePunchUI;
 
@@ -33,6 +36,46 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
         PriceTMP.text = GetPrice().ToString();
         AmountUpgrade.text = level.ToString();
 
+        if (GM_LikesScore.instance != null)
+        {
+            GM_LikesScore.instance.OnLikesUpdated += OnCanUpgrade;
+        }
+        else
+        {
+            Debug.LogWarning("äÁè¾º GM_LikesScore.instance");
+        }
+    }
+
+    private void Start()
+    {
+        
+    }
+
+    private void OnDestroy()
+    {
+        if (GM_LikesScore.instance != null)
+        {
+            GM_LikesScore.instance.OnLikesUpdated -= OnCanUpgrade;
+        }
+    }
+
+    private void OnCanUpgrade(int currentLikes)
+    {
+        
+        if (BlackScene != null)
+        {
+           
+            Color color = BlackScene.color;
+            if (currentLikes >= price)
+            {
+                color.a = 0;
+            }
+            else
+            {
+                color.a = 0.5f;
+            }
+            BlackScene.color = color;
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

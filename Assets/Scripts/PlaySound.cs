@@ -20,6 +20,7 @@ public class PlaySound : MonoBehaviour
 
     public void StartPlaySound()
     {
+        if (audioClips.Length == 0) { return; }
         var index = Random.Range(0, audioClips.Length);
         audioSource.PlayOneShot(audioClips[index]);
     }
