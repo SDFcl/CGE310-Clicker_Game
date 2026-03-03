@@ -24,6 +24,8 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
 
     public UnityEvent OnUpgrade;
 
+    public bool useBuyScene;
+
     private void Awake()
     {
         
@@ -64,7 +66,7 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
     private void OnCanUpgrade(int currentLikes)
     {
 
-        if (BlackScene != null)
+        if (BlackScene != null && !useBuyScene)
         {
             Color color = BlackScene.color;
             if (currentLikes >= GetPrice())
@@ -86,8 +88,8 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
         {
             _scalePunchUI.Activate();
             //Do something
-            OnUpgrade.Invoke();
             UpLevel(1);
+            OnUpgrade.Invoke();
         }
     }
 
