@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Down-Arrow-PNG-Image-Background_0: -6314794087735092442
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

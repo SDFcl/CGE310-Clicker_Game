@@ -24,8 +24,6 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
 
     public UnityEvent OnUpgrade;
 
-    public bool useBuyScene;
-
     private void Awake()
     {
         
@@ -45,12 +43,12 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
         }
         else
         {
-            Debug.LogWarning("äÁè¾º GM_LikesScore.instance");
+            Debug.LogWarning("ï¿½ï¿½è¾º GM_LikesScore.instance");
         }
 
         if (PriceTMP == null && AmountUpgrade == null && _scalePunchUI == null)
         {
-            Debug.Log("Error : ÂÑ§äÁèä´é¡ÓË¹´");
+            Debug.Log("Error : ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë¹ï¿½");
             gameObject.SetActive(false);
         }
     }
@@ -66,7 +64,7 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
     private void OnCanUpgrade(int currentLikes)
     {
 
-        if (BlackScene != null && !useBuyScene)
+        if (BlackScene != null)
         {
             Color color = BlackScene.color;
             if (currentLikes >= GetPrice())
@@ -88,8 +86,8 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
         {
             _scalePunchUI.Activate();
             //Do something
-            UpLevel(1);
             OnUpgrade.Invoke();
+            UpLevel(1);
         }
     }
 
@@ -104,7 +102,7 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
 
     public int GetPrice()
     {
-        double _price = PriceAddLater + (basePrice * Mathf.Pow(growthRate, level));
+        double _price = Mathf.CeilToInt(PriceAddLater + (basePrice * Mathf.Pow(growthRate, level)));
         price = Convert.ToInt32(_price);
         
         return price;
