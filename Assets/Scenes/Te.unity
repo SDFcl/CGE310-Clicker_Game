@@ -1791,7 +1791,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888193668}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -3090,8 +3090,8 @@ MonoBehaviour:
   - {fileID: 888193669}
   SceneNames:
   - Living room
-  - Beach
-  - Space
+  - 2
+  - 3
   BlackScene: {fileID: 1068344556}
   SceneNameTMP: {fileID: 1164496884}
   _buyNewScene: {fileID: 0}

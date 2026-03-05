@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
+public class SlotUpgradeScript : MonoBehaviour, IPointerClickHandler
 {
     public TextMeshProUGUI PriceTMP;
     public TextMeshProUGUI AmountUpgrade;
@@ -24,15 +24,17 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
 
     public UnityEvent OnUpgrade;
 
+    public bool useBuyScene;
+
     private void Awake()
     {
-        
+
         price = basePrice;
         AmountUpgrade.text = "0";
         PriceTMP.text = GetPrice().ToString();
         AmountUpgrade.text = level.ToString();
 
-        
+
     }
 
     private void Start()
@@ -43,12 +45,12 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
         }
         else
         {
-            Debug.LogWarning("��辺 GM_LikesScore.instance");
+            Debug.LogWarning("ไม่พบ GM_LikesScore.instance");
         }
 
         if (PriceTMP == null && AmountUpgrade == null && _scalePunchUI == null)
         {
-            Debug.Log("Error : �ѧ������˹�");
+            Debug.Log("Error : ยังไม่ได้กำหนด");
             gameObject.SetActive(false);
         }
     }
@@ -64,13 +66,13 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
     private void OnCanUpgrade(int currentLikes)
     {
 
-        if (BlackScene != null)
+        if (BlackScene != null && !useBuyScene)
         {
             Color color = BlackScene.color;
             if (currentLikes >= GetPrice())
             {
                 color.a = 0;
-                
+
             }
             else
             {
@@ -86,8 +88,8 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
         {
             _scalePunchUI.Activate();
             //Do something
-            OnUpgrade.Invoke();
             UpLevel(1);
+            OnUpgrade.Invoke();
         }
     }
 
@@ -102,9 +104,9 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
 
     public int GetPrice()
     {
-        double _price = Mathf.CeilToInt(PriceAddLater + (basePrice * Mathf.Pow(growthRate, level)));
+        double _price = PriceAddLater + (basePrice * Mathf.Pow(growthRate, level));
         price = Convert.ToInt32(_price);
-        
+
         return price;
     }
 }
