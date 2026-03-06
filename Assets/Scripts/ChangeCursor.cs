@@ -6,7 +6,7 @@ public class ChangeCursor : MonoBehaviour
 
     void Start()
     {
-        Vector2 hotspot = new Vector2(0, 0);
+        Vector2 hotspot = new Vector2(32,32);
         Cursor.SetCursor(cursorTexture, hotspot, CursorMode.Auto);
     }
 }

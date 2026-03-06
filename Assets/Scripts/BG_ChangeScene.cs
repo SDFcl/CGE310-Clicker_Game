@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor.UI;
 using UnityEngine.UI;
 using System.Collections;
 using Unity.VisualScripting;
@@ -11,13 +10,13 @@ public class BG_ChangeScene : MonoBehaviour
 {
     public float duration = 0.5f;
 
-    [Header("Backgroud Scene - àÃÕÂ§´éÇÂ")]
+    [Header("Backgroud Scene - ï¿½ï¿½ï¿½Â§ï¿½ï¿½ï¿½ï¿½")]
     public List<CanvasGroup> BGScenes = new List<CanvasGroup>();
 
-    [Header("Buy new Scene - àÃÕÂ§´éÇÂ")]
+    [Header("Buy new Scene - ï¿½ï¿½ï¿½Â§ï¿½ï¿½ï¿½ï¿½")]
     public List<CanvasGroup> BuyScene = new List<CanvasGroup>();
 
-    [Header("Source - àÃÕÂ§´éÇÂ")]
+    [Header("Source - ï¿½ï¿½ï¿½Â§ï¿½ï¿½ï¿½ï¿½")]
     public AudioClip[] audioClips;
 
     [Header("Scene Name")]
