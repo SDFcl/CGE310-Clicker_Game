@@ -16,6 +16,7 @@ public class FloatingTextSpawner : MonoBehaviour , IPointerClickHandler
     public void Spawn()
     {
         var text = pool.Get();
-        text.Activate(GM_LikesScore.instance._clickAmount.ToString(), canvas);
+        string _clickAmount = NumberFormatter.Format(GM_LikesScore.instance._clickAmount);
+        text.Activate(_clickAmount.ToString(), canvas);
     }
 }

@@ -31,7 +31,7 @@ public class SlotUpgradeScript : MonoBehaviour, IPointerClickHandler
 
         price = basePrice;
         AmountUpgrade.text = "0";
-        PriceTMP.text = GetPrice().ToString();
+        PriceTMP.text = NumberFormatter.Format(GetPrice());
         AmountUpgrade.text = level.ToString();
 
 
@@ -98,7 +98,7 @@ public class SlotUpgradeScript : MonoBehaviour, IPointerClickHandler
         level += amount;
         GM_LikesScore.instance.setScoreLikes(GM_LikesScore.instance.getScoreLikes() - price);
         AmountUpgrade.text = level.ToString();
-        PriceTMP.text = GetPrice().ToString();
+        PriceTMP.text = NumberFormatter.Format(GetPrice());
 
     }
 

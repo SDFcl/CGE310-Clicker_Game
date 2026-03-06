@@ -33,7 +33,7 @@ public class FloatingText : MonoBehaviour
         isReleased = false;
 
         timer = lifeTime;
-        text.text = "+"+value;
+        text.text = "+"+ value;
 
         // รีเซ็ตสีให้ทึบ
         Color c = originalColor;

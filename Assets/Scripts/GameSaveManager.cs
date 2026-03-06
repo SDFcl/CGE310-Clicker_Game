@@ -114,7 +114,7 @@ public class GameSaveManager : MonoBehaviour
                     slot.AmountUpgrade.text = loadedLevel.ToString();
 
                 if (slot.PriceTMP != null)
-                    slot.PriceTMP.text = slot.price.ToString();
+                    slot.PriceTMP.text = NumberFormatter.Format(slot.price);
 
                 Debug.Log($"[Load] Slot {i} → Level = {loadedLevel}, Price = {slot.price}");
             }
