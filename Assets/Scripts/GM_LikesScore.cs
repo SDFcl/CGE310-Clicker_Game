@@ -33,7 +33,7 @@ public class GM_LikesScore : MonoBehaviour
 
     public void UpdateLikesText()
     {
-        LikesScoreText.text = "Like : " + _likeCount.ToString();
+        LikesScoreText.text = "" + _likeCount.ToString();
         OnLikesUpdated?.Invoke(_likeCount);
     }
     private void UpdateLikeScore(int Amount)
