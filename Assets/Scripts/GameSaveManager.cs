@@ -145,7 +145,7 @@ public class GameSaveManager : MonoBehaviour
             slot.level = 0;
             slot.price = slot.basePrice; // หรือคำนวณใหม่ตามสูตรเริ่มต้น
             if (slot.AmountUpgrade != null) slot.AmountUpgrade.text = "0";
-            if (slot.PriceTMP != null) slot.PriceTMP.text = slot.GetPrice().ToString();
+            if (slot.PriceTMP != null) slot.PriceTMP.text = NumberFormatter.Format(slot.price);
         }
 
         // 3. เซฟสถานะใหม่ (optional แต่แนะนำ)
