@@ -28,20 +28,26 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
 
     private void Awake()
     {
+<<<<<<< Updated upstream
         
+=======
+>>>>>>> Stashed changes
         price = basePrice;
         AmountUpgrade.text = "0";
         PriceTMP.text = GetPrice().ToString();
         AmountUpgrade.text = level.ToString();
+<<<<<<< Updated upstream
 
         
+=======
+>>>>>>> Stashed changes
     }
 
     private void Start()
     {
         if (GM_LikesScore.instance != null)
         {
-            GM_LikesScore.instance.OnLikesUpdated += OnCanUpgrade;
+            GM_LikesScore.instance.OnLikesUpdated += OnCanUpgrade; //subscribe
         }
         else
         {
@@ -72,7 +78,10 @@ public class SlotUpgradeScript : MonoBehaviour , IPointerClickHandler
             if (currentLikes >= GetPrice())
             {
                 color.a = 0;
+<<<<<<< Updated upstream
                 
+=======
+>>>>>>> Stashed changes
             }
             else
             {

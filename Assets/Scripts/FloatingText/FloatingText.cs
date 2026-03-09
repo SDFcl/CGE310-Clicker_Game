@@ -28,14 +28,12 @@ public class FloatingText : MonoBehaviour
 
     public void Activate(string value , Canvas canvas)
     {
-        
         text.transform.SetParent(canvas.transform);
         isReleased = false;
 
         timer = lifeTime;
         text.text = "+"+value;
 
-        // รีเซ็ตสีให้ทึบ
         Color c = originalColor;
         c.a = 1f;
         text.color = c;
@@ -61,15 +59,13 @@ public class FloatingText : MonoBehaviour
     {
         if (isReleased) return;
 
-        timer -= Time.deltaTime;
-
-        // ลอยขึ้น
         transform.Translate(Vector3.up * moveSpeed * Time.deltaTime);
 
-        // 🎨 ทำให้จาง
         Color c = text.color;
         c.a = timer / lifeTime;
         text.color = c;
+
+        timer -= Time.deltaTime;
 
         if (timer <= 0f)
         {

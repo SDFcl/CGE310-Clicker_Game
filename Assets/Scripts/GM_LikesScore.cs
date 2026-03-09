@@ -10,15 +10,20 @@ public class GM_LikesScore : MonoBehaviour
     [HideInInspector] public int _likeCount = 0;
     [SerializeField] private TextMeshProUGUI LikesScoreText;
 
-    public System.Action<int> OnLikesUpdated;  // ← เพิ่ม event นี้ (public)
+    public System.Action<int> OnLikesUpdated;  //Observer Pattern
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        else { Destroy(this); }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
     }
 
     private void Update()
@@ -28,13 +33,18 @@ public class GM_LikesScore : MonoBehaviour
 
     public void likeUpdatedInvoke()
     {
-        OnLikesUpdated?.Invoke(_likeCount);
+        OnLikesUpdated?.Invoke(_likeCount); 
     }
 
     public void UpdateLikesText()
     {
+<<<<<<< Updated upstream
         LikesScoreText.text = "Like : " + _likeCount.ToString();
         OnLikesUpdated?.Invoke(_likeCount);
+=======
+        LikesScoreText.text = NumberFormatter.Format(_likeCount);
+        OnLikesUpdated?.Invoke(_likeCount); //notify
+>>>>>>> Stashed changes
     }
     private void UpdateLikeScore(int Amount)
     {
